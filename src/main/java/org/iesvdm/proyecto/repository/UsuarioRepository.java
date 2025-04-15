@@ -1,2 +1,17 @@
-package org.iesvdm.proyecto.repository;public class UsuarioRepository {
+package org.iesvdm.proyecto.repository;
+
+import org.iesvdm.proyecto.domain.Usuario;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+
+    // Filtra por correo electrónico
+    @Query("SELECT us FROM Usuario us WHERE us.correoElectronico = :correoElectronico")
+    Optional<Usuario> findBycorreoElectronico(String correoElectronico);
+
 }
