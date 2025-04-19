@@ -19,11 +19,9 @@ public class Inscripcion {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
-    @JsonIgnore
     private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "id_actividad")
-    @JsonIgnore
     private Actividad actividad;
 }
