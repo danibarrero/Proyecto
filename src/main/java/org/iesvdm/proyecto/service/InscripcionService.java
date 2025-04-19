@@ -17,6 +17,7 @@ import java.util.List;
 @Service
 public class InscripcionService {
 
+
     @Autowired
     private InscripcionRepository inscripcionRepository;
 
@@ -30,16 +31,36 @@ public class InscripcionService {
         return inscripcionRepository.findAll();
     }
 
-//    public Inscripcion createInscipcion(Long idUsuario, Long idActividad, Inscripcion inscripcion) {
-//        Usuario usuario = usuarioRepository.findById(idUsuario)
-//                .orElseThrow(() -> new UsuarioNotFoundException(idUsuario));
-//        inscripcion.setUsuario(usuario);
-//
-//        Actividad actividad = actividadRepository.findById(idActividad)
-//                .orElseThrow(() -> new ActividadNotFoundException(idActividad));
-//        inscripcion.setActividad(actividad);
-//
-//        return inscripcionRepository.save(inscripcion);
-//    }
+    public Inscripcion createInscripcion(Inscripcion inscripcion) {
+        // Verificar que el usuario existe
+        Usuario usuario = usuarioRepository.findById(inscripcion.getUsuario().getId())
+                .orElseThrow(() -> new UsuarioNotFoundException(inscripcion.getUsuario().getId()));
+
+        // Verificar que la actividad existe
+        Actividad actividad = actividadRepository.findById(inscripcion.getActividad().getId())
+                .orElseThrow(() -> new ActividadNotFoundException(inscripcion.getActividad().getId()));
+
+        // Asignar usuario y actividad verificados
+        inscripcion.setUsuario(usuario);
+        inscripcion.setActividad(actividad);
+
+        return inscripcionRepository.save(inscripcion);
+    }
+
+    // Metodo  que acepta IDs
+    public Inscripcion createInscripcionByIds(Long idUsuario, Long idActividad) {
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new UsuarioNotFoundException(idUsuario));
+
+        Actividad actividad = actividadRepository.findById(idActividad)
+                .orElseThrow(() -> new ActividadNotFoundException(idActividad));
+
+        Inscripcion inscripcion = Inscripcion.builder()
+                .usuario(usuario)
+                .actividad(actividad)
+                .build();
+
+        return inscripcionRepository.save(inscripcion);
+    }
 
 }
