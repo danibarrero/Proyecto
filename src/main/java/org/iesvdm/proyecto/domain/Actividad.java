@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -46,11 +47,12 @@ public class Actividad {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate fecha;
 
-    @OneToMany(mappedBy = "actividad")
-    @JsonIgnore
-    private Set<Comentario> comentarios;
+    @OneToMany(mappedBy = "actividad", fetch = FetchType.EAGER)
+    @Builder.Default
+    private Set<Comentario> comentarios = new HashSet<>();
 
     @OneToMany(mappedBy = "actividad")
     @JsonIgnore
-    private Set<Inscripcion> inscripciones;
+    @Builder.Default
+    private Set<Inscripcion> inscripciones = new HashSet<>();
 }

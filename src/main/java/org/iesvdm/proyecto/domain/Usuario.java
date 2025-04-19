@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -41,11 +43,13 @@ public class Usuario {
             message = "La contraseña debe tener al menos 6 caracteres, incluyendo letras y números")
     private String contrasena;
 
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Set<Comentario> comentarios;
-
     @OneToMany(mappedBy = "usuario")
     @JsonIgnore
-    private Set<Inscripcion> inscripciones;
+    @Builder.Default
+    private Set<Comentario> comentarios = new HashSet<>();
+
+    @OneToMany(mappedBy = "usuario")
+    @Builder.Default
+    @JsonIgnore
+    private Set<Inscripcion> inscripciones = new HashSet<>();
 }

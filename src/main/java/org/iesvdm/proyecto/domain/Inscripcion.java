@@ -17,11 +17,13 @@ public class Inscripcion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    @JsonIgnore
     private Usuario usuario;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_actividad", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "id_actividad")
+    @JsonIgnore
     private Actividad actividad;
 }

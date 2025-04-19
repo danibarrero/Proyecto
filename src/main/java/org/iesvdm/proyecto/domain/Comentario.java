@@ -28,12 +28,9 @@ public class Comentario {
     private LocalDate fechaComentario;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario", nullable = false)
-    @JsonIgnore
     private Usuario usuario;
 
-    @ManyToOne
-    @JoinColumn(name = "id_actividad", nullable = false)
+    @ManyToOne ()
     @JsonIgnore
     private Actividad actividad;
 }
