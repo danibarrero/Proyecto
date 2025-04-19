@@ -103,8 +103,8 @@ public class IntegracionCompleta {
                 .actividad(actividad2)
                 .build();
 
-        inscripcionService.createInscripcion(inscripcion1);
-        inscripcionService.createInscripcion(inscripcion2);
+        inscripcionService.createInscripcionByIds(usuario1.getId(), actividad1.getId());
+        inscripcionService.createInscripcionByIds(usuario2.getId(), actividad2.getId());
         inscripcionService.createInscripcion(inscripcion3);
 
         // 5. Verificaciones
