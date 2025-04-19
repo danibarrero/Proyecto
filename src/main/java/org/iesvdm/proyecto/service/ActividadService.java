@@ -1,5 +1,6 @@
 package org.iesvdm.proyecto.service;
 
+import jakarta.transaction.Transactional;
 import org.iesvdm.proyecto.domain.Actividad;
 import org.iesvdm.proyecto.exception.ActividadNotFoundException;
 import org.iesvdm.proyecto.exception.ComentarioNotFoundException;
@@ -21,6 +22,7 @@ public class ActividadService {
     @Autowired
     private ActividadRepository actividadRepository;
 
+    @Transactional
     public List<Actividad> getAllActividades() {
         return actividadRepository.findAll();
     }

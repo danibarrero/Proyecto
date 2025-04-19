@@ -7,20 +7,22 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+
 @Builder
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @NotBlank(message = "El nombre no puede estar vacío")
@@ -41,11 +43,13 @@ public class Usuario {
             message = "La contraseña debe tener al menos 6 caracteres, incluyendo letras y números")
     private String contrasena;
 
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario")
+    @Builder.Default
     @JsonIgnore
-    private Set<Comentario> comentarios;
+    private Set<Comentario> comentarios = new HashSet<>();
 
     @OneToMany(mappedBy = "usuario")
+    @Builder.Default
     @JsonIgnore
-    private Set<Inscripcion> inscripciones;
+    private Set<Inscripcion> inscripciones = new HashSet<>();
 }
